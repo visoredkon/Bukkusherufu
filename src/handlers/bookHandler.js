@@ -2,6 +2,12 @@ const { nanoid } = require('nanoid')
 const Book = require('../models/bookModel')
 const books = require('../data/booksData')
 
+const responseCode = {
+    created: 201,
+    badRequest: 400,
+    notFound: 404
+}
+
 /**
  * @param {import('@hapi/hapi').Request} request
  * @param {import('@hapi/hapi').ResponseToolkit} h
@@ -9,9 +15,10 @@ const books = require('../data/booksData')
  */
 const saveBook = (request, h) => {
     try {
+        const lengthId = 16
         const { name, year, author, summary, publisher, pageCount, readPage, reading } = request.payload
 
-        const newBook = new Book(nanoid(16), name, year, author, summary, publisher, pageCount, readPage, reading)
+        const newBook = new Book(nanoid(lengthId), name, year, author, summary, publisher, pageCount, readPage, reading)
 
         books.push(newBook)
 
@@ -21,12 +28,12 @@ const saveBook = (request, h) => {
             data: {
                 bookId: newBook.id
             }
-        }).code(201)
+        }).code(responseCode.created)
     } catch (error) {
         return h.response({
             status: 'fail',
             message: error.message
-        }).code(400)
+        }).code(responseCode.badRequest)
     }
 }
 
@@ -42,25 +49,26 @@ const getAllBooks = (request, _h) => {
 
     if (name) {
         const booksName = name.toLowerCase()
-        selectedBooks = selectedBooks.filter((book) =>
+        selectedBooks = selectedBooks.filter(book =>
             book.name.toLowerCase().includes(booksName)
         )
     }
 
     if (reading) {
         const isReading = +reading === 1
-        selectedBooks = selectedBooks.filter((book) => book.reading === isReading)
+        selectedBooks = selectedBooks.filter(book => book.reading === isReading)
     }
 
     if (finished) {
         const isFinished = +finished === 1
-        selectedBooks = selectedBooks.filter((book) => book.finished === isFinished)
+        selectedBooks = selectedBooks.filter(book => book.finished === isFinished)
     }
 
-    const formattedBooks = selectedBooks.map(({ id, name, publisher }) => ({
+    const formattedBooks = selectedBooks.map(({ id, name: bookName, publisher }) => ({
         id,
-        name,
-        publisher
+        publisher,
+        name: bookName
+
     }))
 
     return {
@@ -93,7 +101,7 @@ const getBookById = (request, h) => {
     return h.response({
         status: 'fail',
         message: 'Buku tidak ditemukan'
-    }).code(404)
+    }).code(responseCode.notFound)
 }
 
 /**
@@ -110,7 +118,7 @@ const updateBookById = (request, h) => {
         return h.response({
             status: 'fail',
             message: 'Gagal memperbarui buku. Id tidak ditemukan'
-        }).code(404)
+        }).code(responseCode.notFound)
     }
 
     try {
@@ -131,7 +139,7 @@ const updateBookById = (request, h) => {
         return h.response({
             status: 'fail',
             message: error.message
-        }).code(400)
+        }).code(responseCode.badRequest)
     }
 }
 
@@ -149,7 +157,7 @@ const deleteBookById = (request, h) => {
         return h.response({
             status: 'fail',
             message: 'Buku gagal dihapus. Id tidak ditemukan'
-        }).code(404)
+        }).code(responseCode.notFound)
     }
 
     books.splice(bookIndex, 1)
