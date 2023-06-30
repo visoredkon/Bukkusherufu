@@ -1,44 +1,15 @@
 class Book {
     constructor (id, name, year, author, summary, publisher, pageCount, readPage, reading, insertedAt, updatedAt) {
-        if (!name) {
-            let errorMessage = updatedAt ? 'Gagal memperbarui buku. ' : 'Gagal menambahkan buku. '
-            errorMessage += 'Mohon isi nama buku'
+        this.validateStringInput(name, 'Nama buku')
+        this.validateNumberInput(year, 'Tahun buku')
+        this.validateStringInput(author, 'Penulis buku')
+        this.validateStringInput(summary, 'Ringkasan buku')
+        this.validateStringInput(publisher, 'Penerbit buku')
+        this.validateNumberInput(pageCount, 'Jumlah halaman buku')
+        this.validateNumberInput(readPage, 'Halaman buku yang sudah dibaca')
+        this.validateBooleanInput(reading, 'Status buku yang sedang dibaca')
 
-            throw new Error(errorMessage)
-        }
-
-        if (typeof name !== 'string') {
-            throw new Error('Nama buku harus berupa string')
-        }
-        if (typeof year !== 'number') {
-            throw new Error('Tahun buku harus berupa angka')
-        }
-        if (typeof author !== 'string') {
-            throw new Error('Penulis buku harus berupa string')
-        }
-        if (typeof summary !== 'string') {
-            throw new Error('Ringkasan buku harus berupa string')
-        }
-        if (typeof publisher !== 'string') {
-            throw new Error('Penerbit buku harus berupa string')
-        }
-        if (typeof pageCount !== 'number') {
-            throw new Error('Jumlah halaman buku harus berupa angka')
-        }
-        if (typeof readPage !== 'number') {
-            throw new Error('Halaman buku yang sudah dibaca harus berupa angka')
-        }
-        if (typeof reading !== 'boolean') {
-            throw new Error('Status buku yang sedang dibaca harus berupa boolean')
-        }
-
-        if (readPage < 0 || readPage > pageCount) {
-            let errorMessage = updatedAt ? 'Gagal memperbarui buku. ' : 'Gagal menambahkan buku. '
-            if (readPage < 0) errorMessage += 'readPage tidak boleh kurang dari 1'
-            if (readPage < 0 && readPage > pageCount) errorMessage += ' dan '
-            if (readPage > pageCount) errorMessage += 'readPage tidak boleh lebih besar dari pageCount'
-            throw new Error(errorMessage)
-        }
+        this.validateReadPageRange(readPage, pageCount)
 
         this.id = id
         this.name = name
@@ -52,6 +23,37 @@ class Book {
         this.reading = reading
         this.insertedAt = insertedAt || new Date().toISOString()
         this.updatedAt = updatedAt || this.insertedAt
+    }
+
+    validateStringInput (value, fieldName) {
+        if (!value) {
+            const errorMessage = `Gagal memperbarui buku. ${fieldName} harus diisi`
+            throw new Error(errorMessage)
+        }
+        if (typeof value !== 'string') {
+            throw new Error(`${fieldName} harus berupa string`)
+        }
+    }
+
+    validateNumberInput (value, fieldName) {
+        if (typeof value !== 'number') {
+            throw new Error(`${fieldName} harus berupa angka`)
+        }
+    }
+
+    validateBooleanInput (value, fieldName) {
+        if (typeof value !== 'boolean') {
+            throw new Error(`${fieldName} harus berupa boolean`)
+        }
+    }
+
+    validateReadPageRange (readPage, pageCount) {
+        if (readPage < 0 || readPage > pageCount) {
+            throw new Error(`Gagal ${this.updatedAt ? 'memperbarui' : 'menambahkan'} buku. ` +
+                `${readPage < 0 ? 'readPage tidak boleh kurang dari 1' : ''}` +
+                `${readPage < 0 && readPage > pageCount ? ' dan ' : ''}` +
+                `${readPage > pageCount ? 'readPage tidak boleh lebih besar dari pageCount' : ''}`)
+        }
     }
 }
 
