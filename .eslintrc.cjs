@@ -1,6 +1,7 @@
+const indentSize = 4
+
 module.exports = {
     env: {
-        commonjs: true,
         es2021: true,
         node: true
     },
@@ -19,12 +20,13 @@ module.exports = {
         }
     ],
     parserOptions: {
-        ecmaVersion: 'latest'
+        ecmaVersion: 'latest',
+        sourceType: 'module'
     },
     rules: {
         indent: [
             'error',
-            4
+            indentSize
         ]
     }
 }

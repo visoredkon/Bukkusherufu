@@ -57,4 +57,4 @@ class Book {
     }
 }
 
-module.exports = Book
+export default Book

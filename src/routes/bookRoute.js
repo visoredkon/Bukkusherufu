@@ -1,4 +1,4 @@
-const bookHandler = require('../handlers/bookHandler')
+import bookHandler from '../handlers/bookHandler.js'
 
 const mainPath = '/books'
 
@@ -40,4 +40,4 @@ const bookRoutes = [
     }
 ]
 
-module.exports = bookRoutes
+export default bookRoutes

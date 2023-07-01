@@ -1,6 +1,6 @@
-const { nanoid } = require('nanoid')
-const Book = require('../models/bookModel')
-const books = require('../data/booksData')
+import { nanoid } from 'nanoid'
+import Book from '../models/bookModel.js'
+import books from '../data/booksData.js'
 
 const responseCode = {
     created: 201,
@@ -168,7 +168,7 @@ const deleteBookById = (request, h) => {
     }
 }
 
-module.exports = {
+export default {
     saveBook,
     getAllBooks,
     getBookById,
