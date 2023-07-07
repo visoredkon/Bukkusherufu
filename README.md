@@ -60,8 +60,6 @@ Feel free to contribute to this project by submitting issues or pull requests.
 
 ## License
 
-This project is free and open-source for anyone who wants to learn, create and share. The LICENSE file has been included to address the occasional desire of some people to monetize open source projects 😫.
+This project is free and open-source for anyone who wants to learn, create and share.
 
-We believe in the power of collaboration and creativity, so we adhere to the terms of a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
-
-![Creative Commons License](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)
+[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)

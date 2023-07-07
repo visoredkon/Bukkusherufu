@@ -9,7 +9,7 @@
         "lint-fix": "eslint . --fix"
     },
     "author": "Pahril Dwi Saputra",
-    "license": "CC-BY-NC-SA-4.0",
+    "license": "MIT",
     "dependencies": {
         "@hapi/hapi": "^21.3.2",
         "dotenv": "^16.3.1",
