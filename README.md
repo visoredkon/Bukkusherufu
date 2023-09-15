@@ -54,7 +54,7 @@ The API will be available at `http://localhost:9000` ✈️
 
 ## Author
 
-- 🖋️ Pahril Dwi Saputra
+- 🖋️ [Pahril Dwi Saputra](https://instagram.com/pahril_15)
 
 Feel free to contribute to this project by submitting issues or pull requests.
 
