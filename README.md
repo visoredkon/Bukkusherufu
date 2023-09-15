@@ -7,7 +7,7 @@ This is the repository for the Bukkusherufu API project. It provides a RESTful A
 1. Clone the repository:
 
    ```
-   git clone https://github.com/your-username/bukkusherufu-api.git
+   git clone https://github.com/visoredkon/bukkusherufu-api.git
    ```
 
 2. Navigate to the project directory:
